@@ -1,0 +1,7 @@
+*
+!.gitignore
+!*/
+!*.vhd
+!*.vhdl
+!*.vcd
+!*.pdf
