@@ -6,8 +6,10 @@ extern uint16_t shift_lfsr(uint16_t v);
 int main(int argc, char **argv) {
     const uint16_t init = 65535;
     uint16_t v = init;
+    int i = 0;
     do {
         v = shift_lfsr(v);
         printf("%u\n", v);
-    } while ( v != init);
+        i++;
+    } while (i != 400);
 }

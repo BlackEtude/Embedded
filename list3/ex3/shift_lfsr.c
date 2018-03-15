@@ -34,7 +34,7 @@ unsigned int shift_lfsr(unsigned int v)
 		length          : 16
 		taps            : (16, 15, 14, 5)
 		shift-amounts   : (1)
-		shift-direction : right
+		shift-direction : left
 	*/
 	enum {
 		length         = 16,
@@ -48,15 +48,15 @@ unsigned int shift_lfsr(unsigned int v)
 	const T zero = (T)(0);
 	v = (
 		(
-			v >> shift_amount_0
+			v << shift_amount_0
 		) | (
 			(
-				(v << (tap_0 - shift_amount_0)) ^
-				(v << (tap_1 - shift_amount_0)) ^
-				(v << (tap_2 - shift_amount_0)) ^
-				(v << (tap_3 - shift_amount_0))
+				(v >> (tap_0 - shift_amount_0)) ^
+				(v >> (tap_1 - shift_amount_0)) ^
+				(v >> (tap_2 - shift_amount_0)) ^
+				(v >> (tap_3 - shift_amount_0))
 			) & (
-				~(~zero << shift_amount_0) << (length - shift_amount_0)
+				~(~zero << shift_amount_0)
 			)
 		)
 	);
