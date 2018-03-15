@@ -6,7 +6,9 @@ use IEEE.numeric_std.ALL;
 ENTITY lfsr IS
 	PORT (
 	 	clk : in  STD_LOGIC;
-		q : inout  STD_LOGIC_VECTOR(15 downto 0) := (OTHERS => '1')
+		--q : inout  STD_LOGIC_VECTOR(15 downto 0) := (OTHERS => '1')
+		q : inout  STD_LOGIC_VECTOR(15 downto 0) := (0 => '1', OTHERS => '0')
+
 	);
 END lfsr;
 

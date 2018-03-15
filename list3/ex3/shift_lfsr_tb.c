@@ -4,7 +4,8 @@
 extern uint16_t shift_lfsr(uint16_t v);
 
 int main(int argc, char **argv) {
-    const uint16_t init = 65535;
+	// const uint16_t init = 65535;
+    const uint16_t init = 1;
     uint16_t v = init;
     int i = 0;
     do {
