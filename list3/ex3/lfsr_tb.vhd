@@ -48,7 +48,7 @@ BEGIN
 	BEGIN
 		wait for clk_period;
 
-		while unsigned(qq) /= to_unsigned(int, 16) loop
+		while true loop
 			write(l, to_integer(unsigned(qq)));
 			writeline(output, l);
 			wait for clk_period;
