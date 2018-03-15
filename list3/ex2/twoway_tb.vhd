@@ -42,7 +42,7 @@ BEGIN
  
 
 	-- stimulating process
-	stim_proc: PROCESS
+	stim_proc: PROCESS  -- it is probably redundant - counter is triggered by clk
 	BEGIN
 		wait for clk_period * 10;
 		wait;
