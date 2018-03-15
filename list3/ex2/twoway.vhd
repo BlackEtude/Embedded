@@ -13,13 +13,9 @@ end twoway;
 ARCHITECTURE Behavioral OF twoway IS
 BEGIN
 	PROCESS(clk)
-	-- ALTERNATYWNIE (wariant malejaco)
-		-- VARIABLE x  : UNSIGNED(NBit-1 downto 0) := (others => '1');
-		-- VARIABLE dir: STD_LOGIC := '0';
-		
-	--wariant rosnaco
-	VARIABLE x  : UNSIGNED(NBit-1 downto 0) := (others => '0');
-	VARIABLE dir: STD_LOGIC := '1';
+	
+	VARIABLE x  : UNSIGNED(NBit-1 downto 0) := (others => '1');
+	VARIABLE dir: STD_LOGIC := '0';
 	BEGIN
 		IF (clk'event AND clk='1') THEN
 			IF dir = '1' THEN

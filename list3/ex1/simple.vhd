@@ -28,7 +28,7 @@ BEGIN
 	PROCESS(clk, rst)
 	BEGIN
 		IF rst = '0' THEN 
-			q <= ('1','0','1','0', OTHERS => '0');		-- dec = 10
+			q <= ('1','0','1','0', OTHERS => '0');
 		ELSIF (clk'event and clk='1') THEN		-- clk changed to '1'
 			q <= q + 1;
 			-- or like this:  q <= q + "00000001";

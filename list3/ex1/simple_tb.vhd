@@ -50,13 +50,13 @@ BEGIN
 		wait for clk_period;
 
 		rst <= '1';
-		wait for clk_period * 35;		--C3 (16+16+3 = 195)
+		wait for clk_period * 35;
 		rst <= '0';
 
 		wait for clk_period;
 
 		rst <= '1';
-		wait for clk_period * 22;		--B6 (16+6 = 182)
+		wait for clk_period * 22;
 		rst <= '0';
 
 		wait for clk_period;
