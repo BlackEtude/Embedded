@@ -2,7 +2,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 use std.textio.all;
- 
+
 ENTITY lfsr_tb IS
 END lfsr_tb;
  
@@ -45,12 +45,14 @@ BEGIN
 
 	variable int : integer := 0;
 	variable l : line;
+	variable s : std_logic;
 	BEGIN
 		wait for clk_period;
 
 		while true loop
 			write(l, to_integer(unsigned(qq)));
 			writeline(output, l);
+
 			wait for clk_period;
 		end loop;
 
