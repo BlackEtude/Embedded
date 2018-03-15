@@ -20,7 +20,7 @@ BEGIN
 		IF (clk'event AND clk='1') THEN
 			IF dir = '1' THEN
 				x := x+1;
-				IF x > 2 ** NBit -1 THEN 
+				IF x = 2 ** NBit -1 THEN  -- cannot be > because counter does not reach values greater than 2^n - 1
 					dir := '0';
 				END IF;
 			ELSE
