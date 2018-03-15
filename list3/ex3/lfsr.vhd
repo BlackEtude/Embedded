@@ -4,7 +4,8 @@ use IEEE.numeric_std.ALL;
 
 
 ENTITY lfsr IS
-	PORT ( clk : in  STD_LOGIC;
+	PORT (
+	 	clk : in  STD_LOGIC;
 		q : inout  STD_LOGIC_VECTOR(15 downto 0) := (OTHERS => '0')
 	);
 END lfsr;

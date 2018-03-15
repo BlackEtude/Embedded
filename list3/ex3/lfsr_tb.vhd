@@ -1,6 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
+use std.textio.all;
  
 ENTITY lfsr_tb IS
 END lfsr_tb;
@@ -30,8 +31,6 @@ BEGIN
 		q   => qq
 	);
    
-	-- clock management process
-	-- no sensitivity list, but uses 'wait'
 	clk_process :PROCESS
 	BEGIN
 		clk <= '0';
@@ -39,4 +38,22 @@ BEGIN
 		clk <= '1';
 		WAIT FOR clk_period/2;
 	END PROCESS;
+
+
+	-- stimulating process
+	stim_proc: PROCESS
+
+	variable int : integer := 0;
+	variable l : line;
+	BEGIN
+		wait for clk_period;
+
+		while unsigned(qq) /= to_unsigned(int, 16) loop
+			write(l, to_integer(unsigned(qq)));
+			writeline(output, l);
+			wait for clk_period;
+		end loop;
+
+		wait;
+	END PROCESS;	
 END;

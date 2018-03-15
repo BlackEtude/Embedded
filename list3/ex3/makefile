@@ -5,7 +5,7 @@ all:
 
 	ghdl -a lfsr_tb.vhd
 	ghdl -e lfsr_tb
-	ghdl -r lfsr_tb --vcd=lfsr.vcd --stop-time=1000ns
+	ghdl -r lfsr_tb --vcd=lfsr.vcd --stop-time=2000ns
 	
 run:
 	gtkwave lfsr.vcd
