@@ -6,5 +6,6 @@
 !*.pdf
 !start.sh
 !makefile
+!Makefile
 !*.c
 !*.png
