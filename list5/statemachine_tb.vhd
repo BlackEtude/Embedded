@@ -88,7 +88,7 @@ BEGIN
     pusher <= '1';
 
     assert driver = "0000"
-      report "expected state '0011' on driver not achieved ; got '" & str(driver) & "'";
+      report "expected state '0000' on driver not achieved ; got '" & str(driver) & "'";
 
     wait;
    end process;
