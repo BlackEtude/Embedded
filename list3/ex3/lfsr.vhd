@@ -16,10 +16,11 @@ ARCHITECTURE Behavioral OF lfsr IS
 BEGIN
   PROCESS
   BEGIN
+
+  	WAIT UNTIL clk'event AND clk='1';
 	q(15 downto 1) <= q(14 downto 0);
 	q(0) <= q(15) XOR q(14) XOR q(13) XOR q(4);
 	
-	WAIT UNTIL clk'event AND clk='1';
   END PROCESS;
 END Behavioral;
 

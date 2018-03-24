@@ -14,13 +14,14 @@ ARCHITECTURE Behavioral OF twoway IS
 BEGIN
 	PROCESS(clk)
 	
-	VARIABLE x  : UNSIGNED(NBit-1 downto 0) := (others => '1');
-	VARIABLE dir: STD_LOGIC := '0';
+	VARIABLE x  : UNSIGNED(NBit-1 downto 0) := (others => '0');
+	VARIABLE dir: STD_LOGIC := '1';
 	BEGIN
 		IF (clk'event AND clk='1') THEN
 			IF dir = '1' THEN
 				x := x+1;
-				IF x = 2 ** NBit -1 THEN  -- cannot be > because counter does not reach values greater than 2^n - 1
+				-- '=' cause doesn't reach numbers > 2^n-1
+				IF x = 2 ** NBit -1 THEN  
 					dir := '0';
 				END IF;
 			ELSE
