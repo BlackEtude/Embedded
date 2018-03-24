@@ -91,7 +91,7 @@ BEGIN
         wait on clk until falling_edge(clk);
 
         assert crc_out = data_out_a0
-            report "Bad crc a0" severity error;
+            report "Error crc a0" severity error;
     end loop;
 
     data_in <= data_out_a0;
@@ -104,7 +104,7 @@ BEGIN
         wait on clk until falling_edge(clk);
 
         assert crc_out = data_out_66
-            report "Bad crc 66" severity error;
+            report "Error crc 66" severity error;
     end loop;
 
     data_in <= data_out_66;
