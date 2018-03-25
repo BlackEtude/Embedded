@@ -18,7 +18,7 @@ architecture Flow of statemachine is
   signal stan_potem : stan := S0;
 begin
 
-state_advance: process(clk)
+state_advance: process(clk, reset)
 begin
 	if rising_edge(reset) then
 		stan_teraz <= S0;
