@@ -2,12 +2,12 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
-entity bin_divider_tb is
-end bin_divider_tb;
+entity bin_div_tb is
+end bin_div_tb;
 
-architecture behavior of bin_divider_tb is
+architecture behavior of bin_div_tb is
 
-    component bin_divider is generic(N : integer);
+    component bin_div is generic(N : integer);
     port(
         clk_in: in std_logic;
         clk_out: out std_logic_vector(N downto 0));
@@ -19,7 +19,7 @@ architecture behavior of bin_divider_tb is
     constant clk_period : Time := 8 ns;
 
 begin
-    uut: bin_divider generic map (N => N)
+    uut: bin_div generic map (N => N)
     port map (
         clk_in => clk_in,
         clk_out => clk_out
