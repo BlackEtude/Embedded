@@ -29,7 +29,7 @@ begin
     );
 
     clk1_1K : entity work.clk_div(clk_div_arch)
-    generic map(R => 114, F => 113)
+    generic map(R => 113637, F => 113636)
     port map (
         clk_in => clk_in,
         clk_out => clk_1_1K
