@@ -7,5 +7,3 @@ all:
 	ghdl -a altimeter_tb.vhdl
 	ghdl -e altimeter_tb
 	ghdl -r altimeter_tb
-run:
-	gtkwave bin_div.vcd
