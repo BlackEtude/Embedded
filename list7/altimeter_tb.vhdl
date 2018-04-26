@@ -30,8 +30,12 @@ BEGIN
 
 		type pattern_array is array (natural range <>) of pattern_type;
 		constant patterns : pattern_array := (
-			(1200, "000000110100"),
-         	(300, "000000010100")
+			(-1200, 	"000000000001"),
+			(300,		"000000010100"),
+			(1200,		"000000110100"),
+			(2300,		"000000100100"),
+			(126700,	"010000000001")
+         	
          );
 
 	begin
