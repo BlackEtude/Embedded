@@ -140,6 +140,7 @@ begin
 				sending <= '1';
 			when CRC =>
 				result_reg <= crc(crc_acc, q);
+				sending <= '1';
 			when others
 				=> result_reg <= result_reg;
 		end case;
