@@ -31,7 +31,7 @@ ARCHITECTURE behavior OF slave_tb IS
  
 BEGIN
 	slave_A: slave
-	GENERIC MAP (identifier => "00000001")
+	GENERIC MAP (identifier => "10101010")
 	PORT MAP (
 		data_bus => data_bus,
 		control_bus => control_bus,
@@ -40,7 +40,7 @@ BEGIN
 	);
 
 	slave_B: slave
-	GENERIC MAP (identifier => "00000010")
+	GENERIC MAP (identifier => "10111011")
 	PORT MAP (
 		data_bus => data_bus,
 		control_bus => control_bus,
@@ -49,7 +49,7 @@ BEGIN
 	);
 
 	slave_C: slave
-	GENERIC MAP (identifier => "00000011")
+	GENERIC MAP (identifier => "11001100")
 	PORT MAP (
 		data_bus => data_bus,
 		control_bus => control_bus,

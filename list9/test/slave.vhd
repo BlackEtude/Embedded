@@ -12,7 +12,6 @@ USE work.txt_util.ALL;
 -- send_start = "000011"
 -- send_data  = "000100"
 -- send_stop  = "000101"
--- send_end = "00110"
 -- receive_start = "001010"
 -- receive_data  = "001011"
 -- receive_stop  = "001100"
@@ -31,7 +30,7 @@ end slave;
 architecture Behavioral of slave is
 
 type state_type is (IDLE, RECEIVE_START, RECEIVE_DATA, RECEIVE_STOP, 
-					ERROR, WRITE, SEND_START, SEND_STOP, SEND_DATA, SEND_END);
+					ERROR, WRITE, SEND_START, SEND_STOP, SEND_DATA);
 signal current_s : state_type := IDLE;
 signal next_s : state_type := IDLE;
 
@@ -42,6 +41,7 @@ signal control_in : std_logic_vector (7 downto 0) := (others => '0');
 signal vstate : std_logic_vector(5 downto 0);
 signal sending : std_logic := '0';
 signal end_sending : std_logic := '0';
+signal after_sending : std_logic := '0';
 
 signal sender : std_logic_vector (7 downto 0) := (others => '0');
 signal id_tosend : std_logic_vector (7 downto 0) := (others => '0');
@@ -59,24 +59,26 @@ begin
 		wait for clk_period;
 
 		-- slaveA => slaveB
-		sender <= "00000001";
-		id_tosend <= "00000010";
-		data_tosend <= "10101010";
+		sender <= "10101010";
+		id_tosend <= "10111011";
+		data_tosend <= "11101110";
 
 		-- slaveB => slaveC
-		--sender <= "00000010";
-		--id_tosend <= "00000011";
-		--data_tosend <= "10101010";
+		sender <= "10111011";
+		id_tosend <= "11001100";
+		data_tosend <= "11111111";
 
-		wait for 100 * clk_period;
-
+		--wait for 500 * clk_period;
 	end process;
 
-	sending_process: process(data_tosend, control_in)
+	sending_process: process(data_tosend, control_in, end_sending)
 	begin
-		if control_in /= "00000001" and data_tosend /= "00000000" then
-			control_bus <= "00000001";
+		if control_in /= "00000001" and data_tosend /= "00000000" and sender = identifier and sending = '0' then
 			sending <= '1';
+		end if;
+
+		if end_sending = '1' then
+			sending <= '0';
 		end if;
 	end process;
 
@@ -99,12 +101,20 @@ begin
 		when IDLE =>
 			vstate <= "000001";
 
-			if sender = identifier and sending = '1' then
-				next_s <= WRITE;
-			elsif data_in = identifier and sending /= '0' then
-				next_s <= RECEIVE_START;
+			--assert false report "main_process" severity note;
+
+			if after_sending = '1' then
+				end_sending <= '1';
+				after_sending <= '0';
 			else
-				next_s <= IDLE;
+				if sender = identifier and sending = '1' then
+					next_s <= WRITE;
+				elsif data_in = identifier and sending = '0' then
+					next_s <= RECEIVE_START;
+				else
+					next_s <= IDLE;
+				end if;
+				end_sending <= '0';
 			end if;
 
 		when WRITE =>
@@ -125,11 +135,7 @@ begin
 		when SEND_STOP =>
 			vstate <= "000101";
 			result_reg <= "00000001";
-			next_s <= IDLE;
-
-		when SEND_END =>
-			vstate <= "000110";
-			--sending <= '0';
+			after_sending <= '1';
 			next_s <= IDLE;
 
 		when RECEIVE_START =>
@@ -139,7 +145,7 @@ begin
 				when "00000000" => 
 					next_s <= RECEIVE_DATA;
 				when others => 
-					next_s <= IDLE;
+					next_s <= ERROR;
 			end case;
 
 		when RECEIVE_DATA =>
@@ -158,7 +164,7 @@ begin
 
 		when ERROR =>
 			vstate <= "111111";
-			next_s <= IDLE;
+			next_s <= ERROR;
 
 	   when others =>
 			next_s <= IDLE;
@@ -168,5 +174,6 @@ begin
 	state <= vstate;
 
 	tmp_data_bus <= result_reg when sending = '1' and sender = identifier else "ZZZZZZZZ";
+	control_bus <= "00000001" when sending = '1' and sender = identifier else "ZZZZZZZZ";
 
 end Behavioral;
