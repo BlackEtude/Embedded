@@ -11,29 +11,26 @@ ARCHITECTURE behavior OF slave_tb IS
 	PORT(
 		data_bus : INOUT std_logic_vector(7 downto 0);
 		control_bus : INOUT std_logic_vector(7 downto 0);
-		--clk : IN std_logic;
+		clk : IN std_logic;
 		state : out STD_LOGIC_VECTOR (5 downto 0);
 		send_id : in std_logic_vector (7 downto 0);
 		send_data : in std_logic_vector (7 downto 0)
 	);
 	END COMPONENT;
 
-	--Inputs
 	signal clk : std_logic := '0';
-
 	signal data_bus : std_logic_vector(7 downto 0) := (others => 'Z');
 	signal control_bus : std_logic_vector(7 downto 0) := (others => 'Z');
 
-	-- outputs from UUT for debugging
 	signal stateA : std_logic_vector(5 downto 0);
 	signal stateB : std_logic_vector(5 downto 0);
 	signal stateC : std_logic_vector(5 downto 0);
-	signal send_idA : std_logic_vector(7 downto 0);
-	signal send_idB : std_logic_vector(7 downto 0);
-	signal send_idC : std_logic_vector(7 downto 0);
-	signal send_dataA : std_logic_vector(7 downto 0);
-	signal send_dataB : std_logic_vector(7 downto 0);
-	signal send_dataC : std_logic_vector(7 downto 0);
+	signal send_idA : std_logic_vector(7 downto 0) := (others => '0');
+	signal send_idB : std_logic_vector(7 downto 0) := (others => '0');
+	signal send_idC : std_logic_vector(7 downto 0) := (others => '0');
+	signal send_dataA : std_logic_vector(7 downto 0) := (others => '0');
+	signal send_dataB : std_logic_vector(7 downto 0) := (others => '0');
+	signal send_dataC : std_logic_vector(7 downto 0) := (others => '0');
 
 	constant clk_period : time := 10 ns;
  
@@ -43,7 +40,7 @@ BEGIN
 	PORT MAP (
 		data_bus => data_bus,
 		control_bus => control_bus,
-		--clk => clk,
+		clk => clk,
 		state => stateA,
 		send_id => send_idA,
 		send_data => send_dataA
@@ -54,7 +51,7 @@ BEGIN
 	PORT MAP (
 		data_bus => data_bus,
 		control_bus => control_bus,
-		--clk => clk,
+		clk => clk,
 		state => stateB,
 		send_id => send_idB,
 		send_data => send_dataB
@@ -65,7 +62,7 @@ BEGIN
 	PORT MAP (
 		data_bus => data_bus,
 		control_bus => control_bus,
-		--clk => clk,
+		clk => clk,
 		state => stateC,
 		send_id => send_idC,
 		send_data => send_dataC
@@ -78,19 +75,27 @@ BEGIN
 		clk <= '1';
 		wait for clk_period/2;
 	end process;
- 
+
 	stim_proc: process
-	begin	
-		--wait for 20 ns;
+	begin		
+		wait for clk_period;
 
 		-- slaveA => slaveB
 		send_dataA <= "11101110";
 		send_idA <= "10111011";
 
-		-- slaveB => slaveC
-		--send_idB <= "11001100";
-		--send_dataB <= "11111111";
+		wait for clk_period * 3;
 
-		wait;
+		-- slaveB => slaveC
+		send_dataB <= "11111111";
+		send_idB <= "11001100";
+		
+		wait for clk_period * 6;
+
+		-- slaveC => slaveA
+		send_dataC <= "10111011";
+		send_idC <= "10101010";
+
+		--wait;
 	end process;
 END;
