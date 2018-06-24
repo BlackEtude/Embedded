@@ -112,14 +112,14 @@ begin
                         report "EXEC:NOP";
                         state_next <= FETCH;
 
-                    when LOAD =>        -- mem[addr] -> ac
+                    when LOAD =>        -- mem[addr] -> AC
                         report "EXEC:LOAD:" & str(substate_ctr);
                         case substate_ctr is
                             when 0 =>
                                 control.IR <= CMD_READ;
                             when 1 =>
                                 control.IR <= CMD_NOP;
-                                control.MAR <= CMD_WRITE; -- from IR
+                                control.MAR <= CMD_WRITE;
                             when 2 =>
                                 control.MAR <= CMD_NOP;
                                 control.MEM <= CMD_READ;
@@ -138,7 +138,7 @@ begin
                             when others =>
                         end case;
 
-                    when STORE =>       -- ac -> mem[addr]
+                    when STORE =>       -- AC -> mem[addr]
                         report "EXEC:STORE:" & str(substate_ctr);
                         case substate_ctr is
                             when 0 =>
@@ -158,7 +158,7 @@ begin
                             when others =>
                         end case;
 
-                    when ADD =>      -- load mem[addr] to bus and tell alu to ADD
+                    when ADD =>      -- load mem[addr] to bus and tell ALU to ADD
                         report "EXEC:ADD:" & str(substate_ctr);
                         case substate_ctr is
                             when 0 =>
@@ -183,7 +183,7 @@ begin
                         end case;
                     when SUBT =>
                         report "EXEC:SUBT:" & str(substate_ctr);
-                        -- load mem[addr] to bus and tell alu to SUBT
+                        -- load mem[addr] to bus and tell ALU to SUBT
                         case substate_ctr is
                             when 0 =>
                                 control.IR <= CMD_READ;
@@ -278,7 +278,7 @@ begin
                         report "EXEC:JUMP:" & str(substate_ctr);
                         case substate_ctr is
                             when 0 =>
-                                control.IR <= CMD_READ;         -- get the adress on the bus
+                                control.IR <= CMD_READ;
                             when 1 =>
                                 control.IR <= CMD_NOP;
                                 control.PC <= PC_SET;
@@ -294,7 +294,7 @@ begin
                 substate_ctr := substate_ctr + 1;
 
             --------------------------------------------------------------------
-            when STORE =>            -- push MBR => mem[MAR]
+            when STORE =>            -- MBR => mem[MAR]
                 report "STORE:" & str(substate_ctr);
                 case substate_ctr is
                     when 0 =>

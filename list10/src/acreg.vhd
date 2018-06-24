@@ -30,7 +30,7 @@ begin
     begin
         if rising_edge(clk) then
             if cmd = CMD_READ then
-                report "AC: READ: " & str(state);
+                --report "AC: READ: " & str(state);
                 data <= state;
             elsif cmd = CMD_WRITE then
                 --report "AC: WRITE";

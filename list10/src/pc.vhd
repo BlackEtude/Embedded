@@ -3,29 +3,6 @@ use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 use work.txt_util.all;
 
-    -------------------------------------------------------------------------------
-    -- Program Counter module                                                    --
-    -------------------------------------------------------------------------------
-    -- Basic program counter - Can be autoincremented or set to a value.         --
-    --                                                                           --
-    -- Generic parameters:                                                       --
-    -- * WORD_WIDTH - length of counter's state (in bits)                     	 --
-    --                                                                           --
-    -- Usage:                                                                    --
-    -- 1. Increment                                                              --
-    --    * set `inc` to '1'                                                     --
-    --    * counter is incremented on next tick                                  --
-    --    * reset `inc` to '0'                                                   --
-    -- 2. Set value                                                              --
-    --    * set `set` to '1' (override the state with value from data)           --
-    --    * set `data` to target value                                           --
-    --    * counter's state is updated on next tick                              --
-    -- 3. Output                                                                 --
-    --    * set `data_out` to '1' (output the state to data)                     --
-    --    * clear `data` (set to "ZZ...Z")                                       --
-    --    * counter's state will be written to `data` on next tick               --
-    -------------------------------------------------------------------------------
-
 entity pc is
     generic (
         WORD_WIDTH : integer := 9

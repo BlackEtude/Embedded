@@ -4,32 +4,6 @@ use ieee.numeric_std.all;
 use std.textio.all;
 use ieee.std_logic_textio;
 use work.txt_util.all;
-
-    --------------------------------------------------------------
-    --                    Generic RAM module                    --
-    --------------------------------------------------------------
-    -- Generic parameters:                                      --
-    -- * ADDRESS_WIDTH - length of memory addresses (in bits)   --
-    -- * WORD_WIDTH - length of the addressable unit (in bits)  --
-    --                                                          --
-    -- Usage:                                                   --
-    -- 1. Reading                                               --
-    --    * set `cmd` to '0'                                    --
-    --    * set `address` to <target address>                   --
-    --    * clear `data` (set to "ZZ...Z")                      --
-    --    * word under address is output to `data` on next tick --
-    --    * reset `cmd` to 'Z'                                  --
-    -- 2. Writing                                               --
-    --    * set `cmd` to '1'                                    --
-    --    * set `address` to <target address>                   --
-    --    * set `data` to what you want to store                --
-    --    * data is saved in the next tick                      --
-    --    * reset `cmd` to 'Z'                                  --
-    --                                                          --
-    -- Module is synchronized on clk's rising edge.             --
-    -- Signal `cmd` should be kept in high impendance state     --
-    -- when ram is not being actively used.                     --
-    --------------------------------------------------------------
     
 entity ram is
     generic (

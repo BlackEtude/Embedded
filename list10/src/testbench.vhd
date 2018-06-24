@@ -144,7 +144,7 @@ begin
     -----------
     --  ALU  --
     -----------
-    the_alu: alu
+    al_unit: alu
     generic map (
         WORD_WIDTH => WORD_WIDTH
     )
@@ -172,7 +172,6 @@ begin
         ac_in => alu_ac
     );
 
-
     ----------
     --  PC  --
     ----------
@@ -197,7 +196,7 @@ begin
     )
     port map (
         clk => clk,
-        cmd => control.mar,
+        cmd => control.MAR,
         data => data_bus(ADDRESS_WIDTH-1 downto 0),
         address => mem_addr
     );
@@ -237,7 +236,7 @@ begin
     )
     port map (
         clk => clk,
-        cmd => control.inreg,
+        cmd => control.INreg,
         data => data_bus
     );
 
@@ -250,7 +249,7 @@ begin
     )
     port map (
         clk => clk,
-        cmd => control.outreg,
+        cmd => control.OUTreg,
         data => data_bus
     );
 
